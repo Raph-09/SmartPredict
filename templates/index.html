@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="{{url_for('static', filename='style.css') }}">
+  <title>Machine Learning Model Deployment</title>
+</head>
+<body>
+    <br/>
+    <br/>
+
+  <h1>Predictive Maintenance Application</h1>
+  <h4>(With ExplainableAI(XAI) Integration)</h4>
+  
+  <div class="video-container">
+    <video class="background-video" loop autoplay muted>
+      <source src="{{url_for('static', filename='animation2.mp4')}}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  
+  <form action="/predict" method="POST">
+    <label for="type">Type:</label>
+    <select id="type" name="type">
+      <option value="L">L</option>
+      <option value="M">M</option>
+      <option value="H">H</option>
+    </select><br><br>
+
+    <label for="air_temp">Air Temperature:</label>
+    <input type="number" id="air_temp" name="air_temp" required><br><br>
+
+    <label for="process_temp">Process Temperature:</label>
+    <input type="number" id="process_temp" name="process_temp" required><br><br>
+
+    <label for="rotational_speed">Rotational Speed:</label>
+    <input type="number" id="rotational_speed" name="rotational_speed" required><br><br>
+
+    <label for="torque">Torque:</label>
+    <input type="number" id="torque" name="torque" required><br><br>
+
+    <label for="tool_wear">Tool Wear:</label>
+    <input type="number" id="tool_wear" name="tool_wear" required><br><br>
+
+    <label for="power">Power:</label>
+    <input type="number" id="power" name="power" required><br><br>
+
+    <input type="submit" value="Predict">
+  </form>
+</body>
+</html>
