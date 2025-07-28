@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from src.exception_manager.exceptioner import CustomException
 from src.logging.logging import get_logger
 import pandas as pd
+from src.entity.config_manager import *
 
 
 
@@ -90,7 +91,7 @@ class DataTransformation:
     try:
       X_train, X_test, y_train, y_test = train_test_split(self.X, self.y, test_size=0.3, random_state=42)
 
-      return  X_train.to_csv("X_train",index=False), X_test.to_csv("X_test",index=False), y_train.to_csv("y_train",index=False), y_test.to_csv("y_test",index=False)
+      return  X_train.to_csv(X_train_path,index=False), X_test.to_csv(X_test_path,index=False), y_train.to_csv(y_train_path,index=False), y_test.to_csv(y_test_path,index=False)
 
     except Exception as e:
       logger.info(f"Eror occured during data splitting {e}")

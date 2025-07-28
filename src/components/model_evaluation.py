@@ -3,6 +3,7 @@ from src.exception_manager.exceptioner import CustomException
 from src.logging.logging import get_logger
 import pandas as pd
 import pickle
+from src.entity.config_manager import *
 
 
 
@@ -17,7 +18,7 @@ class ModelEvaluation:
   def __init__ (self,y_test_path, X_test_path):
     self.y_test = pd.read_csv(y_test_path)
     self.X_test = pd.read_csv(X_test_path)
-    self.model = pickle.load(open('model.pickle', 'rb'))
+    self.model = pickle.load(open(model_saving_path, 'rb'))
 
 
   def evaluator(self):
@@ -53,7 +54,7 @@ class ModelEvaluation:
 
 
       # Save to a text file
-      with open("metrics_report.txt", "w") as f:
+      with open(model_metrics_path, "w") as f:
         f.write(metrics_text)
       return accuracy, recall, precision, f1
 

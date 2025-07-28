@@ -1,6 +1,7 @@
 from src.exception_manager.exceptioner import CustomException
 from src.logging.logging import get_logger
 import pandas as pd
+from src.entity.config_manager import *
 
 
 
@@ -23,7 +24,7 @@ class DataIngestion:
   def data_saver (self):
     try:
       logger.info("The data is saving ...")
-      return self.data.to_csv("pred_data",index=False)
+      return self.data.to_csv(processed_data_path,index=False)
        
     except Exception as e:
       logger.info(f"Error occur in the data saving stage{e}")

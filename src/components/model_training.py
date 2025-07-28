@@ -3,6 +3,7 @@ import pickle
 import pandas as pd
 from src.exception_manager.exceptioner import CustomException
 from src.logging.logging import get_logger
+from src.entity.config_manager import *
 
 logger = get_logger(__name__)
 
@@ -12,7 +13,7 @@ class trianer:
     self.X_train_path = X_train_path
     self.y_train_path = y_train_path
     self.X_train = pd.read_csv(self.X_train_path)
-    self.y_train = pd.read_csv(self.y_train_path)
+    self.y_train = pd.read_csv(self.y_train_path).values.ravel()
     self.rf_classifier = None
 
   def model_training(self):
@@ -26,7 +27,7 @@ class trianer:
 
       # File path to save the model
       logger.info("Tained Model saved")
-      file_path = "model.pickle"
+      file_path = model_saving_path
 
       # Save the model to the pickle file
       with open(file_path, "wb") as file:

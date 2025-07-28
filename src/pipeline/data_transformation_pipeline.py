@@ -1,6 +1,7 @@
 from src.exception_manager.exceptioner import CustomException
 from src.logging.logging import get_logger
 from src.components.data_transformation import DataTransformation
+from src.entity.config_manager import *
 
 
 
@@ -11,7 +12,7 @@ class DataTansPipeline:
     pass
 
   def initiate_tranformation(self):
-    data = DataTransformation("pred_data")
+    data = DataTransformation(processed_data_path)
     data.feature_creation()
     data.irrelevant_drop()
     data.outlier_handling()

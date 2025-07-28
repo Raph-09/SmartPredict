@@ -1,6 +1,7 @@
 from src.exception_manager.exceptioner import CustomException
 from src.logging.logging import get_logger
 from src.components.data_ingestion import DataIngestion
+from src.entity.config_manager import *
 
 
 
@@ -12,7 +13,7 @@ class data_ingestion_pipeline:
 
   def inititate_ingestion(self):
       try:
-        data = DataIngestion("src/pipeline/ai4i2020.csv")
+        data = DataIngestion(raw_data_path)
         data.data_loader()
         data.data_saver()
       except Exception as e:
