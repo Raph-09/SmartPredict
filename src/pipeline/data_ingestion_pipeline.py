@@ -19,3 +19,8 @@ class data_ingestion_pipeline:
       except Exception as e:
         logger.info(f"Error occured in the data ingestion pipeline stage {e}")
         raise CustomException("Error occured in the data ingestion pipeline stage",e)
+      
+
+if __name__ == "__main__":
+    pipeline = data_ingestion_pipeline()
+    pipeline.inititate_ingestion()

@@ -12,3 +12,7 @@ class ModelTrainerPipeline:
   def initialize_training(self):
     train = trianer(X_train_path,y_train_path)
     train.model_training()
+
+if __name__=="__main__":
+  training = ModelTrainerPipeline()
+  training.initialize_training()

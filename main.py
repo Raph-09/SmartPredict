@@ -5,7 +5,10 @@ from src.pipeline.data_transformation_pipeline import DataTansPipeline
 from src.pipeline.model_trainer_pipeline import ModelTrainerPipeline
 from src.pipeline.model_evaluation_pipeline import ModelEvaluationPipeline
 
+import mlflow
 
+# Set experiment globally
+mlflow.set_experiment("PredictiveMaintenance")
 
 
 logger = get_logger(__name__)

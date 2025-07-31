@@ -20,3 +20,8 @@ class DataTansPipeline:
     data.setting_var()
     data.data_balancing()
     data.data_splitter()
+
+
+if __name__=="__main__":
+  data_trans = DataTansPipeline()
+  data_trans.initiate_tranformation()

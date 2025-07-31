@@ -3,3 +3,7 @@ pandas
 sklearn
 imblearn
 pyyaml
+mlflow
+dvc
+dagshub
+dvc-s3

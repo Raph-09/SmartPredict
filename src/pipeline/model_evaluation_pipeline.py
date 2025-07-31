@@ -14,3 +14,10 @@ class ModelEvaluationPipeline:
   def initialize_evalator (self):
     eval = ModelEvaluation(y_test_path,X_test_path)
     eval.evaluator()
+
+
+if __name__=="__main__":
+  evalpipe = ModelEvaluationPipeline()
+  evalpipe.initialize_evalator()
+
+

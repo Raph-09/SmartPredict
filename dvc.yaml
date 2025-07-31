@@ -1,0 +1,38 @@
+stages:
+  data_ingestion:
+    cmd: python -m src.pipeline.data_ingestion_pipeline
+    deps:
+      - data/ai4i2020.csv
+      - src/pipeline/data_ingestion_pipeline.py
+    outs:
+      - artifacts/data_ingestion/pred_data.csv
+
+  data_transformation:
+    cmd: python -m src.pipeline.data_transformation_pipeline
+    deps:
+      - artifacts/data_ingestion/pred_data.csv
+      - src/pipeline/data_transformation_pipeline.py
+    outs:
+      - artifacts/data_transformation/X_train.csv
+      - artifacts/data_transformation/X_test.csv
+      - artifacts/data_transformation/y_train.csv
+      - artifacts/data_transformation/y_test.csv
+
+  model_training:
+    cmd: python -m src.pipeline.model_trainer_pipeline
+    deps:
+      - artifacts/data_transformation/X_train.csv
+      - artifacts/data_transformation/y_train.csv
+      - src/pipeline/model_trainer_pipeline.py
+    outs:
+      - artifacts/model_artifact/model.pkl
+
+  model_evaluation:
+    cmd: python -m src.pipeline.model_evaluation_pipeline
+    deps:
+      - artifacts/data_transformation/X_test.csv
+      - artifacts/data_transformation/y_test.csv
+      - artifacts/model_artifact/model.pkl
+      - src/pipeline/model_evaluation_pipeline.py
+    outs:
+      - artifacts/evaluation_result/metrics_report.txt
