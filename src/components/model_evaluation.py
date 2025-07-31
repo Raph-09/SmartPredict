@@ -4,9 +4,10 @@ from src.logging.logging import get_logger
 import pandas as pd
 import pickle
 import mlflow
-from src.entity.config_manager import *  # Assumes model_saving_path & model_metrics_path are defined
+from src.entity.config_manager import *  
 import dagshub
 import os
+from sklearn.metrics import accuracy_score,confusion_matrix,classification_report
 # from src.entity.config_manager import *
 
 
@@ -15,6 +16,7 @@ import os
 os.environ['MLFLOW_TRACKING_URI']="https://dagshub.com/akpan1653/SmartPredict.mlflow"
 os.environ['MLFLOW_TRACKING_USERNAME']="akpan1653"
 os.environ["MLFLOW_TRACKING_PASSWORD"]="c9041b3ac1a05dc118ddebef3a5eaccdf097c413"
+
 mlflow.set_experiment("PredictiveMaintenance")
 
 
@@ -59,6 +61,13 @@ class ModelEvaluation:
         mlflow.log_metric("precision", precision)
         mlflow.log_metric("recall", recall)
         mlflow.log_metric("f1_score", f1)
+
+        
+        cr=classification_report(self.y_test,pred)
+        cm=confusion_matrix(self.y_test,pred)
+
+        mlflow.log_text(str(cm),"confusion_matrix.txt")
+        mlflow.log_text(cr,"classification_report.txt")
 
       # Save to a text file
       metrics_text = (

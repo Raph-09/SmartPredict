@@ -1,50 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <link rel="stylesheet" href="{{url_for('static', filename='style.css') }}">
-  <title>Machine Learning Model Deployment</title>
+    <meta charset="UTF-8">
+    <title>Predictive Maintenance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fc;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            margin-top: 25px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #004999;
+        }
+
+        .result {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .success {
+            color: #2e7d32;
+            background-color: #e8f5e9;
+        }
+
+        .failure {
+            color: #c62828;
+            background-color: #ffebee;
+        }
+
+        .error {
+            color: #b71c1c;
+            background-color: #fce4ec;
+        }
+    </style>
 </head>
 <body>
-    <br/>
-    <br/>
 
-  <h1>Predictive Maintenance Application</h1>
-  <h4>(With ExplainableAI(XAI) Integration)</h4>
-  
-  <div class="video-container">
-    <video class="background-video" loop autoplay muted>
-      <source src="{{url_for('static', filename='animation2.mp4')}}" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  </div>
-  
-  <form action="/predict" method="POST">
-    <label for="type">Type:</label>
-    <select id="type" name="type">
-      <option value="L">L</option>
-      <option value="M">M</option>
-      <option value="H">H</option>
-    </select><br><br>
+    <h1>Machine Failure Prediction</h1>
+    <p>After inputting the values, press predict, and scroll down to see the prediction</p>
 
-    <label for="air_temp">Air Temperature:</label>
-    <input type="number" id="air_temp" name="air_temp" required><br><br>
+    <form method="POST">
+        <label for="type">Type:</label>
+        <select name="type" required>
+            <option value="" disabled selected>Select machine type</option>
+            <option value="0">L (Low)</option>
+            <option value="1">M (Medium)</option>
+            <option value="2">H (High)</option>
+        </select>
 
-    <label for="process_temp">Process Temperature:</label>
-    <input type="number" id="process_temp" name="process_temp" required><br><br>
+        <label for="air_temp">Air Temperature [K]:</label>
+        <input type="number" name="air_temp" step="any" required>
 
-    <label for="rotational_speed">Rotational Speed:</label>
-    <input type="number" id="rotational_speed" name="rotational_speed" required><br><br>
+        <label for="process_temp">Process Temperature [K]:</label>
+        <input type="number" name="process_temp" step="any" required>
 
-    <label for="torque">Torque:</label>
-    <input type="number" id="torque" name="torque" required><br><br>
+        <label for="rpm">Rotational Speed [rpm]:</label>
+        <input type="number" name="rpm" step="any" required>
 
-    <label for="tool_wear">Tool Wear:</label>
-    <input type="number" id="tool_wear" name="tool_wear" required><br><br>
+        <label for="torque">Torque [Nm]:</label>
+        <input type="number" name="torque" step="any" required>
 
-    <label for="power">Power:</label>
-    <input type="number" id="power" name="power" required><br><br>
+        <label for="tool_wear">Tool Wear [min]:</label>
+        <input type="number" name="tool_wear" step="any" required>
 
-    <input type="submit" value="Predict">
-  </form>
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if result %}
+        <div class="result {% if 'No Failure' in result %}success{% elif 'Failure' in result %}failure{% else %}error{% endif %}">
+            <strong>Prediction:</strong> {{ result }}
+        </div>
+    {% endif %}
+
 </body>
 </html>
