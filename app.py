@@ -11,12 +11,12 @@ model = pickle.load(open(MODEL_PATH, "rb"))
 
 # Feature order from training
 EXPECTED_COLUMNS = [
-    "Type",
-    "Air temperature [K]",
-    "Process temperature [K]",
-    "Rotational speed [rpm]",
-    "Torque [Nm]",
-    "Tool wear [min]",
+    "type",
+    "air_temperature_k",
+    "process_temperature_k",
+    "rotational_speed_rpm",
+    "torque_nm",
+    "tool_wear_min",
     "Power"
 ]
 
@@ -26,16 +26,16 @@ def index():
         try:
             # Collect input values
             form_data = {
-                "Type": int(request.form["type"]),
-                "Air temperature [K]": float(request.form["air_temp"]),
-                "Process temperature [K]": float(request.form["process_temp"]),
-                "Rotational speed [rpm]": float(request.form["rpm"]),
-                "Torque [Nm]": float(request.form["torque"]),
-                "Tool wear [min]": float(request.form["tool_wear"])
+                "type": int(request.form["type"]),
+                "air_temperature_k": float(request.form["air_temp"]),
+                "process_temperature_k": float(request.form["process_temp"]),
+                "rotational_speed_rpm": float(request.form["rpm"]),
+                "torque_nm": float(request.form["torque"]),
+                "tool_wear_min": float(request.form["tool_wear"])
             }
 
             # Compute engineered feature
-            form_data["Power"] = form_data["Torque [Nm]"] * form_data["Rotational speed [rpm]"]
+            form_data["Power"] = form_data["torque_nm"] * form_data["rotational_speed_rpm"]
 
             # Create DataFrame in correct order
             df = pd.DataFrame([form_data])[EXPECTED_COLUMNS]
