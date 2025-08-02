@@ -20,7 +20,7 @@ class DataTransformation:
   
   def feature_creation (self):
     try: 
-        self.data['Power'] = self.data[['Rotational speed [rpm]','Torque [Nm]']].product(axis=1)
+        self.data['Power'] = self.data[['rotational_speed_rpm', 'torque_nm']].product(axis=1)
         logger.info(f"Created a new feature called {self.data['Power']}")
         return self.data
     except Exception as e:
@@ -28,8 +28,8 @@ class DataTransformation:
       raise CustomException(f"Error occured feature creation stage",e)
   def irrelevant_drop (self):
     try:
-      self.data = self.data.drop(['UDI','Product ID','TWF','HDF','PWF','OSF','RNF'],axis=1)
-      logger.info("ropping irrelevant features such  as 'UDI','Product ID','TWF','HDF','PWF','OSF','RNF'")
+      self.data = self.data.drop(['id','product_id','twf','hdf','pwf','osf','rnf'],axis=1)
+      logger.info("ropping irrelevant features such  as 'udo','product id','twf','hdf','pwf','osf','rnf'")
       return self.data
     except Exception as e:
       logger.info(f"Error occurred while dropping irrelevant features {e}")
@@ -39,7 +39,7 @@ class DataTransformation:
     logger.info("Handling outliers")
     try:
       numeric_cols = self.data.select_dtypes(include=[np.number]).columns
-      numeric_cols = numeric_cols.drop("Machine failure")
+      numeric_cols = numeric_cols.drop("machine_failure")
       for col in numeric_cols:
           Q1 = self.data[col].quantile(0.25)
           Q3 = self.data[col].quantile(0.75)
@@ -68,8 +68,8 @@ class DataTransformation:
   def setting_var (self):
     logger.info("setting independent and dependent variables")
     try:
-      self.X = self.data.drop('Machine failure',axis=1)
-      self.y = self.data['Machine failure']
+      self.X = self.data.drop('machine_failure',axis=1)
+      self.y = self.data['machine_failure']
       return self.X, self.y
     except Exception as e:
       logger.info(f"Error occured while setting dependent and independent variable {e}")

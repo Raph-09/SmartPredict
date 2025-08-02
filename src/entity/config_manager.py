@@ -19,7 +19,12 @@ required_dirs = [
 create_directories(required_dirs)
 
 # Accessing values from config
-raw_data_path = config["artifacts"]["raw_data_path"]
+mysql_user = config["artifacts"]["mysql_user"]
+mysql_password = config["artifacts"]["mysql_password"]
+mysql_host = config["artifacts"]["mysql_host"]
+mysql_database = config["artifacts"]["mysql_database"]
+mysql_table = config["artifacts"]["mysql_table"]
+
 processed_data_path = config["artifacts"]["data_ingestion"]["processed_data_path"]
 X_train_path = config["artifacts"]["data_transformation"]["train_data"]["X_train"]
 X_test_path = config["artifacts"]["data_transformation"]["train_data"]["X_test"]
@@ -40,3 +45,5 @@ clf = RandomForestClassifier(
     min_samples_leaf=model_params["min_samples_leaf"],
     random_state=model_params["random_state"]
 )
+
+

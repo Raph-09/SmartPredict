@@ -13,7 +13,7 @@ class data_ingestion_pipeline:
 
   def inititate_ingestion(self):
       try:
-        data = DataIngestion(raw_data_path)
+        data = DataIngestion()
         data.data_loader()
         data.data_saver()
       except Exception as e:

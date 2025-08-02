@@ -1,14 +1,27 @@
 artifacts:
-  raw_data_path: data/ai4i2020.csv
+  # raw_data_path: data/ai4i2020.csv
+  mysql_user: root
+  mysql_password: akukanem_12
+  mysql_host: localhost
+  mysql_database: mlops
+  mysql_table: machine_data_1
+
+  
+  
+  
   data_ingestion:
     processed_data_path: artifacts/data_ingestion/pred_data.csv
+
+
   data_transformation:
     train_data:
       X_train: artifacts/data_transformation/X_train.csv
       X_test: artifacts/data_transformation/X_test.csv
       y_train: artifacts/data_transformation/y_train.csv
       y_test: artifacts/data_transformation/y_test.csv
+
   model_artifact:
     model_path: artifacts/model_artifact/model.pkl
+
   evaluation_result:  
     metrics_path: artifacts/evaluation_result/metrics_report.txt
