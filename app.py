@@ -2,29 +2,22 @@ from flask import Flask, render_template, request
 import pandas as pd
 import pickle
 import os
+from database import save_prediction  # import from separate file
 
 app = Flask(__name__)
 
-# Load trained model
 MODEL_PATH = os.path.join("artifacts", "model_artifact", "model.pkl")
 model = pickle.load(open(MODEL_PATH, "rb"))
 
-# Feature order from training
 EXPECTED_COLUMNS = [
-    "type",
-    "air_temperature_k",
-    "process_temperature_k",
-    "rotational_speed_rpm",
-    "torque_nm",
-    "tool_wear_min",
-    "Power"
+    "type", "air_temperature_k", "process_temperature_k",
+    "rotational_speed_rpm", "torque_nm", "tool_wear_min", "Power"
 ]
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
         try:
-            # Collect input values
             form_data = {
                 "type": int(request.form["type"]),
                 "air_temperature_k": float(request.form["air_temp"]),
@@ -33,18 +26,18 @@ def index():
                 "torque_nm": float(request.form["torque"]),
                 "tool_wear_min": float(request.form["tool_wear"])
             }
-
-            # Compute engineered feature
             form_data["Power"] = form_data["torque_nm"] * form_data["rotational_speed_rpm"]
 
-            # Create DataFrame in correct order
             df = pd.DataFrame([form_data])[EXPECTED_COLUMNS]
 
-            # Predict
             prediction = model.predict(df)[0]
-            result = "⚠️ Machine Failure" if prediction == 1 else "✅ No Failure"
+            result_label = "⚠️ Machine Failure" if prediction == 1 else "✅ No Failure"
 
-            return render_template("index.html", result=result)
+            form_data["prediction_value"] = int(prediction)
+            form_data["prediction_label"] = result_label
+            save_prediction(form_data)
+
+            return render_template("index.html", result=result_label)
 
         except Exception as e:
             return render_template("index.html", result=f"Error: {e}")
