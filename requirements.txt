@@ -12,3 +12,4 @@ lime
 sqlalchemy
 pymysql
 evidently
+pytest
