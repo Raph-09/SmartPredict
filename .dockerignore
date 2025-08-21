@@ -1,0 +1,31 @@
+# Version control
+.git
+.github
+.gitignore
+
+# DVC
+.dvc
+.dvcignore
+dvc.lock
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Environments
+.venv/
+venv/
+
+# Data & artifacts
+data/
+artifacts/
+logs/
+
+# Jupyter notebooks
+notebooks/
+
+# Tests
+tests/
