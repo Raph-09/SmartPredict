@@ -48,6 +48,6 @@ jobs:
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
-        app-name: predictive_maintenance
+        app-name: predictive_maintenance-app1
         slot-name: production
         images: testdockerakpan.azurecr.io/predictive_maintenance:${{ github.sha }}
