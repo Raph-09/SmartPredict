@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request
 import pandas as pd
 import pickle
-import os
-from database import save_prediction  # import from separate file
+import os    
+# from database import save_prediction  # import from separate file
 
 app = Flask(__name__)
 
@@ -33,9 +33,9 @@ def index():
             prediction = model.predict(df)[0]
             result_label = "⚠️ Machine Failure" if prediction == 1 else "✅ No Failure"
 
-            form_data["prediction_value"] = int(prediction)
-            form_data["prediction_label"] = result_label
-            save_prediction(form_data)
+            # form_data["prediction_value"] = int(prediction)
+            # form_data["prediction_label"] = result_label
+            # save_prediction(form_data)
 
             return render_template("index.html", result=result_label)
 
@@ -45,4 +45,4 @@ def index():
     return render_template("index.html", result=None)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0',port= 5000)
